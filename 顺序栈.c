@@ -2,7 +2,7 @@
 #include "stdbool.h"
 #include "stdlib.h"
 
-#define maxlen 10
+#define maxlen 5
 
 typedef struct //定义结构类型栈(顺序栈)
 {
@@ -23,7 +23,10 @@ slack* InitSeqSlack()//初始化顺序栈
 bool SeqPush(slack* s, int a)//顺序栈的元素入栈
 {
 	if (s->top == maxlen - 1)//栈满，入栈失败
+	{
+		printf("栈满,元素 %d 入栈失败!\n", a);
 		return false;
+	}
 	s->top++;//新栈顶
 	s->data[s->top] = a;//新元素进入栈顶
 	return true;//入栈成功
@@ -31,8 +34,11 @@ bool SeqPush(slack* s, int a)//顺序栈的元素入栈
 
 bool SeqPop(slack* s, int *a)//顺序栈的元素出栈,给出出栈元素
 {
-	if (s->top == - 1)//栈空，没有元素出栈
+	if (s->top == -1)//栈空，没有元素出栈
+	{
+		printf("空栈,没有元素出栈!\n");
 		return false;
+	}
 	*a = s->data[s->top];//弹出栈顶元素
 	s->data[s->top] = 0;//清除栈顶元素
 	s->top--;//新栈顶
@@ -64,7 +70,7 @@ int main()
 		SeqPush(s, a);//入栈
 	}
 	PrintSeqSlack(s);
-	for (i = 1; s->top != -1;i++)//元素出栈直到栈为空
+	for (i = 1; s->top != -1; i++)//元素出栈直到栈为空
 	{
 		SeqPop(s, &a);//出栈
 		printf("第%d个出栈元素: %d\n", i, a);
